@@ -1,75 +1,117 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:lighthouse_web_app/core/resources/colors.dart';
+import 'package:lighthouse_web_app/core/utils/shared_preferences.dart';
+import 'package:lighthouse_web_app/features/navigation_screen/presentation/view/main_screen_page.dart';
 
-void main() {
-  runApp(const MyApp());
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
+
+  await setUp();
+
+  runApp(
+    EasyLocalization(
+      supportedLocales: const [Locale('en'), Locale('ar')],
+      path: "assets/translations",
+      fallbackLocale: const Locale('ar'),
+      child: const MyApp(),
+    ),
+  );
+  
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-  
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Lighthouse Coming Soon',
       debugShowCheckedModeBanner: false,
+      localizationsDelegates: context.localizationDelegates,
+      supportedLocales: context.supportedLocales,
+      locale: context.locale,
+      title: 'LightHose',
       theme: ThemeData(
-        primaryColor: const Color(0xFF02243F),
+        primarySwatch: customSwatch,
+        scaffoldBackgroundColor: lightGrey,
+        fontFamily: "Proxima Nova",
+        textTheme: TextTheme(
+          titleLarge: TextStyle(
+            fontSize: 30.0,
+            fontWeight: FontWeight.w800,
+            fontFamily: context.locale.countryCode == 'en'
+                ? "Proxima Nova"
+                : "NotoSansArabic",
+            color: Colors.white,
+          ),
+          titleMedium: TextStyle(
+            fontSize: 28.0,
+            fontWeight: FontWeight.w600,
+            fontFamily: context.locale.countryCode == 'en'
+                ? "Proxima Nova"
+                : "NotoSansArabic",
+            color: navy,
+          ),
+          titleSmall: TextStyle(
+            fontSize: 24.0,
+            fontWeight: FontWeight.w600,
+            fontFamily: context.locale.countryCode == 'en'
+                ? "Proxima Nova"
+                : "NotoSansArabic",
+            color: navy,
+          ),
+          bodyLarge: TextStyle(
+            fontSize: 22.0,
+            fontWeight: FontWeight.w400,
+            fontFamily: context.locale.countryCode == 'en'
+                ? "Raleway"
+                : "NotoKufiArabic",
+            color: navy,
+          ),
+          bodyMedium: TextStyle(
+            fontSize: 18.0,
+            fontWeight: FontWeight.w400,
+            fontFamily: context.locale.countryCode == 'en'
+                ? "Raleway"
+                : "NotoKufiArabic",
+            color: navy,
+          ),
+          bodySmall: TextStyle(
+            fontSize: 14.0,
+            fontWeight: FontWeight.w400,
+            fontFamily: context.locale.countryCode == 'en'
+                ? "Raleway"
+                : "NotoKufiArabic",
+            color: navy,
+          ),
+          labelLarge: TextStyle(
+            fontSize: 20.0,
+            fontWeight: FontWeight.w600,
+            fontFamily: context.locale.countryCode == 'en'
+                ? "Proxima Nova"
+                : "NotoSansArabic",
+            color: navy,
+          ),
+          labelMedium: TextStyle(
+            fontSize: 16.0,
+            fontWeight: FontWeight.w600,
+            fontFamily: context.locale.countryCode == 'en'
+                ? "Proxima Nova"
+                : "NotoSansArabic",
+            color: navy,
+          ),
+          labelSmall: TextStyle(
+            fontSize: 14.0,
+            fontWeight: FontWeight.w600,
+            fontFamily: context.locale.countryCode == 'en'
+                ? "Proxima Nova"
+                : "NotoSansArabic",
+            color: navy,
+          ),
+        ),
       ),
-      home: const HomePage(),
-    );
-  }
-}
-
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
-
-  // Define your custom colors
-  static const Color lightGrey = Color(0xFFF4F6FF);
-  static const Color grey = Color(0xFFc2c5cc);
-  static const Color orange = Color(0xFFEB8317);
-  static const Color yellow = Color(0xFFF3C623);
-  static const Color navy = Color(0xFF10375C);
-  static const Color darkNavy = Color(0xFF02243F);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: darkNavy,
-      body: LayoutBuilder(
-        builder: (context, constraints) {
-          bool isMobile = constraints.maxWidth < 600;
-          return Center(
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  SvgPicture.asset(
-                    'assets/svg/en-logo.svg',
-                    width: isMobile ? 250 : 350,
-                  ),
-                  const SizedBox(height: 20),
-                  SvgPicture.asset(
-                    'assets/svg/lighthouse_ch.svg',
-                    width: isMobile ? 350 : 450,
-                  ),
-                  const SizedBox(height: 40),
-                  Text(
-                    'Coming Soon...',
-                    style: TextStyle(
-                      fontSize: isMobile ? 36 : 48,
-                      fontWeight: FontWeight.bold,
-                      color: lightGrey,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          );
-        },
-      ),
+      home: const NavigationScreen(),
     );
   }
 }

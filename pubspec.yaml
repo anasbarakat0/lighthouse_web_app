@@ -1,5 +1,5 @@
 name: lighthouse_web_app
-description: "A new Flutter project."
+description: "A coworking space where creativity meets community."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
@@ -35,6 +35,37 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
   flutter_svg: ^2.0.17
+  flutter_launcher_icons: ^0.14.3
+  internet_connection_checker: ^3.0.1
+  easy_localization: ^3.0.7+1
+  dio: ^5.8.0+1
+  get_it: ^8.0.3
+  go_router: ^14.8.1
+  qr_flutter: ^4.1.0
+  animate_do: ^4.2.0
+  lottie: ^3.3.1
+  rive: ^0.13.20
+  ffi: ^2.1.3
+  url_launcher: ^6.3.1
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  remove_alpha_ios: true
+  image_path_android: "assets/icons/light-710x599.png"
+  image_path_ios: "assets/icons/light-1024x1024.png"
+  min_sdk_android: 21
+  adaptive_icon_background: "#ffffff"
+  adaptive_icon_foreground: "assets/icons/light-1024x1024.png"
+  windows:
+    generate: true
+    image_path: "assets/icons/logo-1024x1024.png"
+    icon_size: 48 # min:48, max:256, default: 48
+  web:
+    generate: true
+    image_path: "assets/icons/logo-1024x1024.png"
+    background_color: "#ffffff"
+    theme_color: "#ffffff"
 
 dev_dependencies:
   flutter_test:
@@ -60,9 +91,17 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/images/
+    - assets/
     - assets/svg/
-
+    - assets/icons/
+    - assets/fonts/
+    - assets/images/
+    - assets/RiveAssets/
+    - assets/translations/
+    - assets/fonts/Raleway/
+    - assets/fonts/ProximaNova/
+    - assets/fonts/NotoSansArabic/
+    - assets/fonts/NotoKufiArabic/
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
 
@@ -74,17 +113,81 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
-  #         style: italic
-  #   - family: Trajan Pro
-  #     fonts:
-  #       - asset: fonts/TrajanPro.ttf
-  #       - asset: fonts/TrajanPro_Bold.ttf
-  #         weight: 700
+  fonts:
+    - family: Proxima Nova
+      fonts:
+        - asset: assets/fonts/ProximaNova/Proxima_Nova_Extrabold.ttf
+          weight: 800
+        - asset: assets/fonts/ProximaNova/Proxima_Nova_Light.ttf
+          weight: 300
+        - asset: assets/fonts/ProximaNova/Proxima_Nova_Regular.ttf
+          weight: 400
+        - asset: assets/fonts/ProximaNova/Proxima_Nova_Semibold.ttf
+          weight: 600
+
+    - family: NotoKufiArabic
+      fonts:
+      - asset: assets/fonts/NotoKufiArabic/NotoKufiArabic-Black.ttf
+        weight: 900
+      - asset: assets/fonts/NotoKufiArabic/NotoKufiArabic-ExtraBold.ttf
+        weight: 800
+      - asset: assets/fonts/NotoKufiArabic/NotoKufiArabic-Bold.ttf
+        weight: 700
+      - asset: assets/fonts/NotoKufiArabic/NotoKufiArabic-SemiBold.ttf
+        weight: 600
+      - asset: assets/fonts/NotoKufiArabic/NotoKufiArabic-Medium.ttf
+        weight: 500
+      - asset: assets/fonts/NotoKufiArabic/NotoKufiArabic-Regular.ttf
+        weight: 400
+      - asset: assets/fonts/NotoKufiArabic/NotoKufiArabic-Light.ttf
+        weight: 300
+      - asset: assets/fonts/NotoKufiArabic/NotoKufiArabic-ExtraLight.ttf
+        weight: 200
+      - asset: assets/fonts/NotoKufiArabic/NotoKufiArabic-Thin.ttf
+        weight: 100
+
+
+    - family: NotoSansArabic
+      fonts:
+        - asset: assets/fonts/NotoSansArabic/NotoSansArabic-Black.ttf
+          weight: 900
+        - asset: assets/fonts/NotoSansArabic/NotoSansArabic-ExtraBold.ttf
+          weight: 800
+        - asset: assets/fonts/NotoSansArabic/NotoSansArabic-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/NotoSansArabic/NotoSansArabic-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/NotoSansArabic/NotoSansArabic-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/NotoSansArabic/NotoSansArabic-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/NotoSansArabic/NotoSansArabic-Light.ttf
+          weight: 300
+        - asset: assets/fonts/NotoSansArabic/NotoSansArabic-ExtraLight.ttf
+          weight: 200
+        - asset: assets/fonts/NotoSansArabic/NotoSansArabic-Thin.ttf
+          weight: 100
+
+    - family: Raleway
+      fonts:
+        - asset: assets/fonts/Raleway/RalewayHeavy.ttf
+          weight: 900
+        - asset: assets/fonts/Raleway/RalewayExtraBold.ttf
+          weight: 800
+        - asset: assets/fonts/Raleway/RalewayBold.ttf
+          weight: 700
+        - asset: assets/fonts/Raleway/RalewaySemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/Raleway/RalewayMedium.ttf
+          weight: 500
+        - asset: assets/fonts/Raleway/RalewayRegular.ttf
+          weight: 400
+        - asset: assets/fonts/Raleway/RalewayLight.ttf
+          weight: 300
+        - asset: assets/fonts/Raleway/RalewayExtraLight.ttf
+          weight: 200
+        - asset: assets/fonts/Raleway/RalewayThin.ttf
+          weight: 100
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package

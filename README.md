@@ -1,6 +1,6 @@
 # lighthouse_web_app
 
-A new Flutter project.
+A coworking space where creativity meets community.
 
 ## Getting Started
 
